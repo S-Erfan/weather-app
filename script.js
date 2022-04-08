@@ -23,7 +23,6 @@ window.addEventListener("keydown", (e)=> {
             fetch(url)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                     setTrand(cityTar);  
                     const {name , main , weather , sys} = data;
                     const icon = `http://openweathermap.org/img/wn/${weather[0]["icon"]}@2x.png`;
@@ -64,32 +63,33 @@ function setTrand(item) {
     trand[0].innerText = item;
 }
 
-const fav = document.querySelectorAll(".ajax i");
+const fav = document.querySelector(".ajax");
 
-fav.forEach((item)=>{
-    item.addEventListener("click",(event)=>{
+
+fav.addEventListener("click",(event)=>{
+    if(event.target.tagName === "I"){
         const addFav = event.target.classList;
         if(addFav.value === "far fa-heart"){
             event.target.className = "fas fa-heart";
-            document.querySelector(".card").classList.toggle("liked");
+            event.target.parentNode.classList.toggle("liked");
         } else {
             event.target.className = "far fa-heart";
-            document.querySelector(".card").classList.toggle("liked");
+            event.target.parentNode.classList.toggle("liked");
         }
-    })
+    }    
 });
 
 const favorite = document.querySelectorAll("ul li a");
-
 favorite.forEach((item)=> {
     item.addEventListener("click", (e) => {
         e.preventDefault();
-        const card = document.querySelectorAll(".card");
-
+        
         if(e.target.innerText === "Favorite"){
+            const card = document.querySelectorAll(".card");
             e.target.classList.add("active");
             favorite[0].classList.remove("active");
             card.forEach((item)=> {
+                console.log(item);
                 if(item.classList.value === "card liked"){
                     item.style.display = null;
                 }else {
@@ -97,6 +97,7 @@ favorite.forEach((item)=> {
                 }
             })
         }else {
+            const card = document.querySelectorAll(".card");
             card.forEach((item) => {
                 item.style.display = null;
             })
