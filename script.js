@@ -137,3 +137,20 @@ trand.forEach((item)=> {
             })
     })
 });
+
+
+
+
+const lightTheme = "style-light.css";
+const darkTheme = "style.css";
+const theme = document.getElementById("theme");
+const mood = document.querySelector("#set-theme");
+theme.addEventListener("click", (event)=> {
+    if(mood.getAttribute("href") == darkTheme){
+        event.target.className = "fas fa-moon";
+        mood.href = "style-light.css";
+    }else{
+        event.target.className = "fas fa-sun";
+        mood.href = "style.css";
+    }
+});
